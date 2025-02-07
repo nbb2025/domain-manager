@@ -9,17 +9,21 @@ RUN npm run build
 # 后端构建阶段
 FROM golang:1.20-alpine AS backend-builder
 WORKDIR /app/backend
+
+# 安装构建依赖
+RUN apk add --no-cache gcc musl-dev
+
 COPY backend/go.* ./
 RUN go mod download
 COPY backend/ ./
-RUN CGO_ENABLED=0 GOOS=linux go build -o domain-manager .
+RUN CGO_ENABLED=1 GOOS=linux go build -o domain-manager .
 
 # 最终运行阶段
 FROM alpine:3.18
 WORKDIR /app
 
 # 安装必要的运行时依赖
-RUN apk add --no-cache ca-certificates tzdata
+RUN apk add --no-cache ca-certificates tzdata sqlite
 
 # 创建数据目录
 RUN mkdir -p /app/data
