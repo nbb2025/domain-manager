@@ -11,12 +11,17 @@ FROM golang:1.20-alpine AS backend-builder
 WORKDIR /app/backend
 
 # 安装构建依赖
-RUN apk add --no-cache gcc musl-dev
+RUN apk add --no-cache gcc musl-dev sqlite-dev
+
+# 设置构建环境变量
+ENV CGO_ENABLED=1
+ENV GOOS=linux
+ENV CGO_CFLAGS="-D_LARGEFILE64_SOURCE"
 
 COPY backend/go.* ./
 RUN go mod download
 COPY backend/ ./
-RUN CGO_ENABLED=1 GOOS=linux go build -o domain-manager .
+RUN go build -o domain-manager .
 
 # 最终运行阶段
 FROM alpine:3.18
