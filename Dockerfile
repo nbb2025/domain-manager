@@ -2,9 +2,9 @@
 FROM node:18-alpine AS frontend-builder
 WORKDIR /app/frontend
 COPY frontend/package*.json ./
-RUN npm install --production
+RUN npm install && npm install terser
 COPY frontend/ ./
-RUN npm install && npm run build
+RUN npm run build
 
 # 后端构建阶段
 FROM golang:1.20-alpine AS backend-builder
