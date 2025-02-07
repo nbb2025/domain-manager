@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  app:
+    image: nbb/domain-manager:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - db_data:/app/backend/data
+    environment:
+      - TZ=Asia/Shanghai
+    restart: unless-stopped
+
+volumes:
+  db_data:
+    driver: local
