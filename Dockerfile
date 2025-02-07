@@ -26,7 +26,7 @@ RUN mkdir -p /app/data
 
 # 复制构建产物
 COPY --from=frontend-builder /app/frontend/dist /app/dist
-COPY --from=backend-builder /app/backend/main/domain-manager /app
+COPY --from=backend-builder /app/backend/domain-manager /app
 COPY --from=backend-builder /app/backend/config /app/config
 
 # 设置环境变量
