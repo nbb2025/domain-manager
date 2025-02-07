@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   app:
-    image: ghcr.io/nbb2025/domain-manager::latest
+    image: ghcr.io/nbb2025/domain-manager:latest
     ports:
       - "8080:8080"
     volumes:
