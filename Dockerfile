@@ -12,7 +12,7 @@ WORKDIR /app/backend
 COPY backend/go.* ./
 RUN go mod download
 COPY backend/ ./
-RUN CGO_ENABLED=0 GOOS=linux go build -o main .
+RUN CGO_ENABLED=0 GOOS=linux go build -o domain-manager .
 
 # 最终运行阶段
 FROM alpine:3.18
@@ -22,21 +22,21 @@ WORKDIR /app
 RUN apk add --no-cache ca-certificates tzdata
 
 # 创建数据目录
-RUN mkdir -p /app/backend/data
+RUN mkdir -p /app/data
 
 # 复制构建产物
-COPY --from=frontend-builder /app/frontend/dist /app/frontend/dist
-COPY --from=backend-builder /app/backend/main /app/backend/main
-COPY backend/config/config.json /app/backend/config/
+COPY --from=frontend-builder /app/frontend/dist /app/dist
+COPY --from=backend-builder /app/backend/main/domain-manager /app
+COPY --from=backend-builder /app/backend/config /app/config
 
 # 设置环境变量
 ENV TZ=Asia/Shanghai
 
 # 声明数据卷
-VOLUME ["/app/backend/data"]
+VOLUME ["/app/data"]
 
 # 暴露端口
 EXPOSE 8080
 
 # 启动应用
-CMD ["/app/backend/main"]
+CMD ["/app/domain-manager"]
