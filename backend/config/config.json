@@ -1,0 +1,12 @@
+{
+  "server": {
+    "port": 8080
+  },
+  "database": {
+    "path": "data/domain-manager.db?_fk=1"
+  },
+  "jwt": {
+    "secret": "dasf123dsasax21xasade213a23@#$%#@#$%",
+    "expire": 24
+  }
+}

@@ -1,0 +1,30 @@
+# IDE配置
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# 编译生成的文件
+*.exe
+*.dll
+*.so
+*.dylib
+
+# 前端依赖和构建
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.*
+
+# 后端依赖和构建
+backend/bin/
+backend/data/*.db
+backend/config/config.*.json
+!backend/config/config.json
+
+# 日志文件
+*.log
+
+# 系统文件
+.DS_Store
+Thumbs.db
