@@ -5,8 +5,11 @@ services:
       - "8080:8080"
     volumes:
       - db_data:/app/backend/data
+      - ./backend/config:/app/backend/config
     environment:
       - TZ=Asia/Shanghai
+      - JWT_SECRET=dasf123dsasax21xasade213a23@#$%#@#$%
+      - JWT_EXPIRE=24
     restart: unless-stopped
 
 volumes:
