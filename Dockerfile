@@ -1,13 +1,13 @@
 # 前端构建阶段
-FROM node:18-alpine as frontend-builder
+FROM node:18-alpine AS frontend-builder
 WORKDIR /app/frontend
 COPY frontend/package*.json ./
-RUN npm install
+RUN npm install --production
 COPY frontend/ ./
-RUN npm run build
+RUN npm install && npm run build
 
 # 后端构建阶段
-FROM golang:1.20-alpine as backend-builder
+FROM golang:1.20-alpine AS backend-builder
 WORKDIR /app/backend
 COPY backend/go.* ./
 RUN go mod download
