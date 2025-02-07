@@ -15,11 +15,11 @@ COPY backend/ ./
 RUN CGO_ENABLED=0 GOOS=linux go build -o main .
 
 # 最终运行阶段
-FROM alpine:3.18
+FROM debian:stable-slim
 WORKDIR /app
 
 # 安装必要的运行时依赖
-RUN apk add --no-cache ca-certificates tzdata
+RUN apt-get update && apt-get install -y ca-certificates tzdata && rm -rf /var/lib/apt/lists/*
 
 # 创建数据目录
 RUN mkdir -p /app/backend/data
